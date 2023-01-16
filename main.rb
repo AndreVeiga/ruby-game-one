@@ -1,20 +1,41 @@
-puts "Bem vindo ao Jogo de Adivinhação"
+def da_boas_vindas
+  puts "Bem vindo ao Jogo de Adivinhação"
+  puts "Qual é o seu nome?"
+  nome = gets.chomp() # gets.strip
+  puts "Olá #{nome}, tudo bem? Vamos Começar! \n"
+end
 
-puts "Qual é o seu nome?"
-nome = gets.chomp()
+def sorteia_numero_secreto
+  175
+end
 
-puts "Olá #{nome}, tudo bem? Vamos Começar! \n"
+def pede_um_numero tentativa, tentativa_maxima, chutes
+  puts "Tentativa #{tentativa} de #{tentativa_maxima}"
+  puts "Tentativas até agora: #{chutes}"
+  puts "Digite o valor: " 
+  chute = gets.chomp().to_i
+end
 
-numero_secreto = 175
-
-for tentativa in 1..3
-  puts "Digite o valor da tentativa " + tentativa.to_s
-  tentativa = gets.chomp().to_i
-
-
-  if tentativa == numero_secreto then
-    puts "Você acertou, parabéns!"
-  else 
-    puts "Você errou, tente novamente."
+def verifica_se_acertou chute, numero_secreto, tentativa
+  if chute == numero_secreto
+    puts "Parabéns, você acertou com #{tentativa} tentativa(s)!"
+    return true
   end
+
+  puts "Você errou, tente novamente."
+  false
+end
+
+da_boas_vindas
+
+numero_secreto = sorteia_numero_secreto
+
+tentativa_minina = 1
+tentativa_maxima = 5
+chutes = []
+
+for tentativa in tentativa_minina..tentativa_maxima
+  chute = pede_um_numero tentativa, tentativa_maxima, chutes
+  chutes << chute
+  break if verifica_se_acertou chute, numero_secreto, tentativa
 end

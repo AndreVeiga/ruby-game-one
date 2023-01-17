@@ -6,7 +6,7 @@ def da_boas_vindas
 end
 
 def sorteia_numero_secreto
-  175
+  rand(200)
 end
 
 def pede_um_numero tentativa, tentativa_maxima, chutes
@@ -22,6 +22,8 @@ def verifica_se_acertou chute, numero_secreto, tentativa
     return true
   end
 
+  puts chute > numero_secreto ? "O número é menor" : "O número é maior"
+
   puts "Você errou, tente novamente."
   false
 end
@@ -33,9 +35,16 @@ numero_secreto = sorteia_numero_secreto
 tentativa_minina = 1
 tentativa_maxima = 5
 chutes = []
+pontos = 1000.0
 
 for tentativa in tentativa_minina..tentativa_maxima
   chute = pede_um_numero tentativa, tentativa_maxima, chutes
   chutes << chute
+  
   break if verifica_se_acertou chute, numero_secreto, tentativa
+  pontos_perder = (chute - numero_secreto).abs / 2.0
+  pontos -= pontos_perder
 end
+
+puts "Você ganhou #{pontos} pontos."
+puts "O número era #{numero_secreto}."
